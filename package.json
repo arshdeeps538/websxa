@@ -1,0 +1,77 @@
+{
+  "name": "websxa",
+  "version": "0.1.0",
+  "description": "Unified web search provider for agents and CLI.",
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "author": "oritwoen (https://github.com/oritwoen)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oritwoen/websxa.git"
+  },
+  "homepage": "https://github.com/oritwoen/websxa#readme",
+  "bugs": "https://github.com/oritwoen/websxa/issues",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "import": "./dist/index.mjs"
+    },
+    "./ai": {
+      "types": "./dist/ai.d.mts",
+      "import": "./dist/ai.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
+  "bin": {
+    "websxa": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "build": "obuild",
+    "dev": "obuild --stub",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest --run",
+    "prepack": "pnpm run build",
+    "release": "pnpm test:run && pnpm build && changelogen --release --push"
+  },
+  "keywords": [
+    "web-search",
+    "search",
+    "cli",
+    "agents",
+    "provider",
+    "unified",
+    "typescript"
+  ],
+  "devDependencies": {
+    "@types/node": "latest",
+    "ai": "^6.0.116",
+    "changelogen": "latest",
+    "obuild": "latest",
+    "typescript": "latest",
+    "vitest": "latest",
+    "zod": "^4.3.6"
+  },
+  "dependencies": {
+    "citty": "latest",
+    "consola": "latest",
+    "ofetch": "^1.5.1"
+  },
+  "peerDependencies": {
+    "ai": "^6.0.116",
+    "zod": "^4.3.6"
+  },
+  "peerDependenciesMeta": {
+    "ai": { "optional": true },
+    "zod": { "optional": true }
+  }
+}
